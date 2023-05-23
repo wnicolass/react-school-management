@@ -7,7 +7,7 @@ export default function MyRoute({
   isClosed,
   ...otherProps
 }) {
-  const isLoggedIn = true;
+  const isLoggedIn = false;
 
   if (isClosed && !isLoggedIn) {
     return (

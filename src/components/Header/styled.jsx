@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { Link } from 'react-router-dom';
 import { primaryColor } from '../../config/colors';
 
 export const Nav = styled.nav`
@@ -17,4 +18,10 @@ export const Nav = styled.nav`
   @media screen and (min-width: 768px) {
     padding-inline: 10rem;
   }
+`;
+
+export const StyledLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 `;
