@@ -9,6 +9,22 @@ import history from '../../services/history';
 const isValidPassword =
   /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[~`!@#$%^&*()_\-+={[}\]|\\:;"'<,>.?/]).{6,20}/;
 
+export function validateForm(email, password) {
+  if (!isEmail(email)) {
+    toast.error('Invalid email');
+    return true;
+  }
+
+  if (!isValidPassword.test(password)) {
+    toast.error(
+      'Password must have at least 1 lowercase letter, 1 uppercase letter, 1 number and 1 symbol'
+    );
+    return true;
+  }
+
+  return false;
+}
+
 export default function SignUp() {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -24,19 +40,7 @@ export default function SignUp() {
       return;
     }
 
-    if (!isEmail(email)) {
-      formHasError = true;
-      toast.error('Invalid email');
-      return;
-    }
-
-    if (!isValidPassword.test(password)) {
-      formHasError = true;
-      toast.error(
-        'Password must have at least 1 lowercase letter, 1 uppercase letter, 1 number and 1 symbol'
-      );
-      return;
-    }
+    formHasError = validateForm(email, password);
 
     if (formHasError) {
       return;
