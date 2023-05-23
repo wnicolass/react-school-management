@@ -30,11 +30,15 @@ export default createGlobalStyle`
     padding: 10px;
     border-radius: 4px;
     font-weight: 700;
+    transition: all .2s ease-in-out;
+
+    &:hover {
+      filter: brightness(1.2);
+    }
   }
 
   a {
     text-decoration: none;
-    background-color: ${colors.primaryColor};
   }
 
   ul {

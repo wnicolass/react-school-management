@@ -11,7 +11,7 @@ export default function App() {
       <Header />
       <Routes />
       <Global />
-      <ToastContainer autoClose={3000} className="toast-container" />
+      <ToastContainer autoClose={5000} className="toast-container" />
     </>
   );
 }
