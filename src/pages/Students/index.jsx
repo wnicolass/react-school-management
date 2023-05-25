@@ -9,7 +9,12 @@ import {
 } from 'react-icons/fa';
 import axios from '../../services/axios';
 import { Container } from '../../styles/Global';
-import { StudentContainer, ProfilePicture } from './styled';
+import {
+  StudentContainer,
+  ProfilePicture,
+  NewStudent,
+  ContainerHeader,
+} from './styled';
 import * as colors from '../../config/colors';
 import Loading from '../../components/Loading';
 
@@ -58,7 +63,10 @@ export default function Students() {
   return (
     <Container>
       <Loading isLoading={isLoading} />
-      <h1>Students</h1>
+      <ContainerHeader>
+        <h1>Students</h1>
+        <NewStudent to="/student/">New Student</NewStudent>
+      </ContainerHeader>
       <StudentContainer>
         <tbody>
           {students.map((student) => (

@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import * as colors from '../../config/colors';
 
 export const StudentContainer = styled.table`
   margin-top: 1rem;
@@ -47,4 +49,28 @@ export const ProfilePicture = styled.td`
     width: 4rem;
     border-radius: 50%;
   }
+`;
+
+export const NewStudent = styled(Link)`
+  display: block;
+  padding: 0.65rem;
+  background-color: ${colors.primaryColor};
+  color: #fff;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    filter: brightness(1.2);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+`;
+
+export const ContainerHeader = styled.header`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 `;
