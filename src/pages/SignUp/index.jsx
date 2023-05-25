@@ -5,6 +5,7 @@ import { Container } from '../../styles/Global';
 import { Form } from './styled';
 import axios from '../../services/axios';
 import history from '../../services/history';
+import Loading from '../../components/Loading';
 
 const isValidPassword =
   /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[~`!@#$%^&*()_\-+={[}\]|\\:;"'<,>.?/]).{6,20}/;
@@ -29,6 +30,7 @@ export default function SignUp() {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -46,6 +48,7 @@ export default function SignUp() {
       return;
     }
 
+    setIsLoading(true);
     try {
       await axios.post('/users', {
         name,
@@ -60,11 +63,14 @@ export default function SignUp() {
         const handledError = error.charAt(0).toUpperCase() + error.slice(1);
         toast.error(handledError);
       });
+    } finally {
+      setIsLoading(false);
     }
   }
 
   return (
     <Container>
+      <Loading isLoading={isLoading} />
       <h1>Sign Up</h1>
       <Form onSubmit={(event) => handleSubmit(event)}>
         <label htmlFor="name">

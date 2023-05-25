@@ -13,6 +13,10 @@ export const StudentContainer = styled.table`
     border-bottom: 1px solid #cccccc9c;
   }
 
+  td {
+    width: 6rem;
+  }
+
   tr td {
     text-align: center;
   }
@@ -28,6 +32,10 @@ export const StudentContainer = styled.table`
 
     tr a svg {
       width: 1rem;
+    }
+
+    tr td {
+      width: 3rem;
     }
   }
 `;
