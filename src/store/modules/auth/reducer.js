@@ -29,7 +29,33 @@ export default function reducer(state = initialState, action) {
 
     case types.LOGIN_REQUEST: {
       delete axios.defaults.headers.Authorization;
-      const newState = structuredClone(initialState);
+      const newState = structuredClone(state);
+      newState.isLoading = true;
+      return newState;
+    }
+
+    case types.REGISTER_UPDATED_SUCCESS: {
+      const newState = structuredClone(state);
+      newState.user.name = action.payload.name;
+      newState.user.email = action.payload.email;
+      newState.isLoading = false;
+      return newState;
+    }
+
+    case types.REGISTER_CREATED_SUCCESS: {
+      const newState = structuredClone(state);
+      newState.isLoading = false;
+      return newState;
+    }
+
+    case types.REGISTER_FAILURE: {
+      const newState = structuredClone(state);
+      newState.isLoading = false;
+      return newState;
+    }
+
+    case types.REGISTER_REQUEST: {
+      const newState = structuredClone(state);
       newState.isLoading = true;
       return newState;
     }
