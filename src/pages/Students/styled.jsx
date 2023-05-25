@@ -18,7 +18,9 @@ export const StudentContainer = styled.table`
   }
 
   tr td {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   @media screen and (max-width: 728px) {
