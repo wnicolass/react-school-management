@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
-import { FaUserCircle, FaEdit, FaWindowClose } from 'react-icons/fa';
+import {
+  FaUserCircle,
+  FaEdit,
+  FaWindowClose,
+  FaExclamation,
+} from 'react-icons/fa';
 import axios from '../../services/axios';
 import { Container } from '../../styles/Global';
-import { StudentContainer, ProfilePicture } from './styled';
+import {
+  StudentContainer,
+  ProfilePicture,
+  NewStudent,
+  ContainerHeader,
+} from './styled';
 import * as colors from '../../config/colors';
 import Loading from '../../components/Loading';
 
@@ -27,10 +37,36 @@ export default function Students() {
     getStudents();
   }, []);
 
+  function handleDeleteAsk(event) {
+    event.preventDefault();
+    const exclamationMark = event.currentTarget.nextElementSibling;
+    exclamationMark.setAttribute('display', 'block');
+    event.currentTarget.remove();
+  }
+
+  async function handleDelete(event, studentId) {
+    try {
+      setIsLoading(true);
+      await axios.delete(`/students/${studentId}`);
+      event.target.closest('tr').remove();
+      setIsLoading(false);
+      toast.success('Student deleted successfully');
+    } catch (err) {
+      const { errors = [] } = err.response.data;
+      if (errors.length) {
+        errors.forEach((error) => toast.error(error));
+      }
+      setIsLoading(false);
+    }
+  }
+
   return (
     <Container>
       <Loading isLoading={isLoading} />
-      <h1>Students</h1>
+      <ContainerHeader>
+        <h1>Students</h1>
+        <NewStudent to="/student/">New Student</NewStudent>
+      </ContainerHeader>
       <StudentContainer>
         <tbody>
           {students.map((student) => (
@@ -52,9 +88,18 @@ export default function Students() {
                 </Link>
               </td>
               <td>
-                <Link to={`/student/${student.id}/delete`}>
+                <Link
+                  onClick={(event) => handleDeleteAsk(event)}
+                  to={`/student/${student.id}/delete`}
+                >
                   <FaWindowClose color={colors.primaryColor} size={24} />
                 </Link>
+                <FaExclamation
+                  size={24}
+                  display="none"
+                  cursor="pointer"
+                  onClick={(event) => handleDelete(event, student.id)}
+                />
               </td>
             </tr>
           ))}
