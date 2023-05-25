@@ -6,15 +6,19 @@ import axios from '../../services/axios';
 import { Container } from '../../styles/Global';
 import { StudentContainer, ProfilePicture } from './styled';
 import * as colors from '../../config/colors';
+import Loading from '../../components/Loading';
 
 export default function Students() {
   const [students, setStudents] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function getStudents() {
       try {
+        setIsLoading(true);
         const res = await axios.get('/students');
         setStudents(res.data);
+        setIsLoading(false);
       } catch (err) {
         toast.error('Something went wrong while searching students data');
       }
@@ -25,6 +29,7 @@ export default function Students() {
 
   return (
     <Container>
+      <Loading isLoading={isLoading} />
       <h1>Students</h1>
       <StudentContainer>
         <tbody>

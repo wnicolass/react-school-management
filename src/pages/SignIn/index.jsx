@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Container } from '../../styles/Global';
 import { Form } from '../SignUp/styled';
 import { validateForm } from '../SignUp';
 import * as actions from '../../store/modules/auth/actions';
+import Loading from '../../components/Loading';
 
 export default function SignIn({ location }) {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  console.log(location);
+  const isLoading = useSelector((state) => state.auth.isLoading);
   // eslint-disable-next-line react/destructuring-assignment
   const prevPath = location.state?.prevPath ?? '/';
 
@@ -27,6 +28,7 @@ export default function SignIn({ location }) {
 
   return (
     <Container>
+      <Loading isLoading={isLoading} />
       <h1>Sign In</h1>
 
       <Form onSubmit={(event) => handleSubmit(event)}>
